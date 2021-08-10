@@ -3,7 +3,7 @@
 import cmd
 import sys
 from models.base_model import BaseModel
-from models.__init__ import storage
+from models.__init__ import storage, convert_to_dict
 from models.user import User
 from models.place import Place
 from models.state import State
@@ -118,11 +118,21 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+        my_list = args.split(" ")
+        if my_list[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[args]()
-        storage.save()
+
+        kwarks = convert_to_dict(my_list[1:])
+
+        if kwarks == {}:
+            new_instance = HBNBCommand.classes[my_list[0]]()
+        else:
+            new_instance = HBNBCommand.classes[my_list[0]]()
+
+            for key, value in kwarks.items():
+                setattr(new_instance, key, value)
+
         print(new_instance.id)
         storage.save()
 
