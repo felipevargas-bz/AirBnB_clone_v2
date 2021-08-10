@@ -3,13 +3,32 @@
 import cmd
 import sys
 from models.base_model import BaseModel
-from models.__init__ import storage, convert_to_dict
+from models.__init__ import storage
 from models.user import User
 from models.place import Place
 from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
+
+
+def convert_to_dict(my_list):
+        kwarks = {}
+
+        for i in my_list:
+            list_tmp = i.split("=")
+            key = list_tmp[0]
+            value = list_tmp[1]
+
+            if value[0] == '"':
+                value = value.strip('"')
+                value = value.replace("_", " ")
+            else:
+                value = eval(value)
+
+            kwarks[key] = value
+
+        return kwarks
 
 
 class HBNBCommand(cmd.Cmd):
