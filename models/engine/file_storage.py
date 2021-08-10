@@ -14,14 +14,13 @@ class FileStorage:
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
-        if cls == None:
+        if cls is None:
             return FileStorage.__objects
         new_dict = {}
         for key, value in self.__objects.items():
             if cls == value.__class__ or cls == value.__class__.__name__:
                 new_dict[key] = value
         return new_dict
-
 
     def save(self):
         """Saves storage dictionary to file"""
@@ -57,7 +56,7 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
-        if obj == None:
+        if obj is None:
             return
         key = "{}.{}".format(obj.__class__.__name__, obj.id)
 
@@ -65,4 +64,3 @@ class FileStorage:
             FileStorage.__objects.pop(key)
         except:
             pass
- 
