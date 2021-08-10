@@ -22,5 +22,5 @@ def convert_to_dict(my_list):
                 value = eval(value)
             
             kwarks[key] = value
-        
+
         return kwarks
