@@ -13,22 +13,18 @@ from models.review import Review
 
 
 def convert_to_dict(my_list):
-        kwarks = {}
-
-        for i in my_list:
-            list_tmp = i.split("=")
-            key = list_tmp[0]
-            value = list_tmp[1]
-
-            if value[0] == '"':
-                value = value.strip('"')
-                value = value.replace("_", " ")
-            else:
-                value = eval(value)
-
-            kwarks[key] = value
-
-        return kwarks
+    kwarks = {}
+    for i in my_list:
+        list_tmp = i.split("=")
+        key = list_tmp[0]
+        value = list_tmp[1]
+        if value[0] == '"':
+            value = value.strip('"')
+            value = value.replace("_", " ")
+        else:
+            value = eval(value)
+        kwarks[key] = value
+    return kwarks
 
 
 class HBNBCommand(cmd.Cmd):
@@ -348,6 +344,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
