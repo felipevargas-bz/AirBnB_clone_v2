@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """This module defines a class to manage database storage for hbnb clone"""
-from models.base_model import BaseModel
-from models.base_model import Base
+from models.base_model import BaseModel, Base
 from sqlalchemy import create_engine
+from sqlalchemy.orm.session import Session
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import scoped_session
 from os import getenv
@@ -36,20 +36,19 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """Query on the current database session"""
-        if cls is None:
-            objs_query = self.__session.query(State).all()
-            objs_query.extend(self.__session.query(City).all())
-            objs_query.extend(self.__session.query(User).all())
-            objs_query.extend(self.__session.query(Place).all())
-            objs_query.extend(self.__session.query(Review).all())
-            objs_query.extend(self.__session.query(Amenity).all())
+        """query on the current database session"""
+        cls_dict = {}
+        if cls is not None:
+            for obj in self.__session.query(cls):
+                key_obj = cls.__name__ + '.' + obj.id
+                cls_dict[key_obj] = obj
         else:
-            if type(cls) == str:
-                cls = eval(cls)
-            objs_query = self.__session.query(cls)
-        return {"{}.{}".format(type(objt).__name__, objt.id):
-                objt for objt in objs_query}
+            cls_list = [User, State, City, Amenity, Place, Review]
+            for cls_type in cls_list:
+                for obj in self.__session.query(cls_type):
+                    key_obj = cls_type.__name__ + '.' + obj.id
+                    cls_dict[key_obj] = obj
+        return cls_dict
 
     def new(self, obj):
         """Add the object to the current database session"""
