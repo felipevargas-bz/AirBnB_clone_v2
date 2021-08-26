@@ -9,9 +9,12 @@ fi
 # Create the folders
 sudo mkdir -p /data/web_static/releases/test/
 sudo mkdir -p /data/web_static/shared/
+# Give ownership of the /data/ folder to the ubuntu user AND group 
+sudo chown -R ubuntu:ubuntu /data
+sudo chmod -R 755 /data/
 # Create a fake HTML file
-sudo chmod -R 777 /data/
-sudo echo "<html>
+touch /data/web_static/releases/test/index.html
+echo "<html>
   <head>
   </head>
   <body>
@@ -19,10 +22,8 @@ sudo echo "<html>
   </body>
 </html>" > /data/web_static/releases/test/index.html
 # Create a symbolic link /data/web_static/current linked to the /data/web_static/releases/test/ folder
-ln -sf /data/web_static/releases/test/ /data/web_static/current
-# Give ownership of the /data/ folder to the ubuntu user AND group 
-sudo chown -R ubuntu:ubuntu /data
+sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
 # Update the Nginx configuration to serve the content of /data/web_static/current/ to hbnb_static
-sed -i '48 i \\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}\n' /etc/nginx/sites-available/default
+sudo sed -i '48 i \\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}\n' /etc/nginx/sites-available/default
 # Restart nginx
 sudo service nginx restart
