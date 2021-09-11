@@ -16,6 +16,8 @@ app.strict_slashes = False
 def hello():
     """This function returns Hello HBNB!"""
     return 'Hello HBNB!'
+
+
 @app.route('/hbnb')
 def hbnb():
     """returns HBNB"""
