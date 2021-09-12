@@ -34,7 +34,7 @@ def c_is_fun(text):
     return "C {}".format(text.replace("_", " "))
 
 
-@app.route('/python', defaults={'text': 'is cool'})
+@app.route('/python/', defaults={'text': 'is cool'})
 @app.route('/python/<text>')
 def python_is_magic(text):
     """
