@@ -11,15 +11,21 @@ app = Flask(__name__)
 app.strict_slashes = False
 # usar un decorador de python, la función route recibe como parámetro la ruta
 # en donde queramos que se corra esta función hello
+
+
 @app.route('/')
 # crear una función para imprimir Hello HBNB!
 def hello():
     """This function returns Hello HBNB!"""
     return 'Hello HBNB!'
+
+
 @app.route('/hbnb')
 def hbnb():
     """returns HBNB"""
     return 'HBNB'
+
+
 @app.route('/c/<text>')
 def c_is_fun(text):
     """
