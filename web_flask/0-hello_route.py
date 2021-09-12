@@ -10,6 +10,8 @@ app = Flask(__name__)
 # en donde queramos que se corra esta función hello
 # strict_slashes permite que cuando una ruta no tenga una barra (/) al final
 # la pueda redirigir correctamente
+
+
 @app.route('/', strict_slashes=False)
 # crear una función para imprimir Hello HBNB!
 def hello():
