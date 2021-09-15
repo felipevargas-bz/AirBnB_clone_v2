@@ -25,7 +25,7 @@ def list_of_states():
     return render_template('7-states_list.html', states=states)
 
 @app.teardown_appcontext
-def teardown():
+def teardown(self):
     """
     ...
     """
