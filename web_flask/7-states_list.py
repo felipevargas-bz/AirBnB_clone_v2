@@ -4,8 +4,9 @@ script that starts a Flask web application
 """
 # importar la clase Flask q permite generar nuevas instancias de Flask
 from flask import Flask, render_template
-from models import storage
 from models.state import State
+from models import storage
+
 # crear una instancia de Flask, llamada app
 app = Flask(__name__)
 # strict_slashes permite que cuando una ruta no tenga una barra (/) al final
